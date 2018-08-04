@@ -23,8 +23,8 @@ class MailjetBackend(BaseEmailBackend):
         super(MailjetBackend, self).__init__(fail_silently=fail_silently, *args, **kwargs)
 
         try:
-            self._api_key = settings.MAILJET_API_KEY
-            self._api_secret = settings.MAILJET_API_SECRET
+            self._api_key = kwargs.get('MAILJET_API_KEY') or settings.MAILJET_API_KEY
+            self._api_secret = kwargs.get('MAILJET_API_SECRET') or settings.MAILJET_API_SECRET
         except AttributeError:
             if not fail_silently:
                 raise ImproperlyConfigured("Please set MAILJET_API_KEY and MAILJET_API_SECRET in settings.py to use Mailjet")
